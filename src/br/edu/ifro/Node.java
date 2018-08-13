@@ -10,23 +10,24 @@ package br.edu.ifro;
  * @author igor-bueno
  */
 public class Node {
-    private Object value;
+
+    private int value;
     private Node proximo;
 
-    public Node(){
-        
+    public Node() {
+
     }
-    
-    public Node(Object teste) {
-        this.setValue(teste);
+
+    public Node(int value) {
+        this.setValue(value);
         this.setProximo(null);
     }
 
-    public Object getValue() {
+    public int getValue() {
         return value;
     }
 
-    public void setValue(Object value) {
+    public void setValue(int value) {
         this.value = value;
     }
 
@@ -36,11 +37,17 @@ public class Node {
 
     public void setProximo(Node proximo) {
         this.proximo = proximo;
-    }   
+    }
 
-    @Override
-    public String toString() {
-        return "Valor: "+ getValue() + "\n";
+    public Node clone(){
+        Node node = new Node(value);
+        node.setProximo(this.getProximo());
+        return node;
     }
     
+    @Override
+    public String toString() {
+        return "Valor: " + getValue() + "\n";
+    }
+
 }
