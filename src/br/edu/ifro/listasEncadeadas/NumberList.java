@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.ifro;
+package br.edu.ifro.listasEncadeadas;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +21,8 @@ public class NumberList {
         this.inicio = null;
         this.length = 0;
     }
-    
-    private NumberList(Node inicio, int length){
+
+    private NumberList(Node inicio, int length) {
         this.inicio = inicio;
         this.length = length;
     }
@@ -180,31 +180,46 @@ public class NumberList {
     }
 
     public boolean trocarElementos(int n1, int n2) {
-        Node node1 = this.obterUm(n1);
-        int valor1 = node1.getValue();
-        Node node2 = this.obterUm(n2);
-        int valor2 = node2.getValue();
+//        Node node1 = this.obterUm(n1);
+//        int valor1 = node1.getValue();
+//        
+//        Node node2 = this.obterUm(n2);
+//        int valor2 = node2.getValue();
+//
+//        if (isEmpty() || (n1 > this.length || n1 < 0)|| (n2 > this.length || n2 < 0)) {
+//            return false;
+//        } else {
+//            Node aux = this.inicio;
+//            int i = 0;
+//            
+//            while (aux != null) {
+//                if (i == n1) {
+//                    node1 = aux;
+//                }
+//                if(i == n2){
+//                    node2 = aux;
+//                }
+//                aux = aux.getProximo();
+//                i++;
+//            }
+//           
+//            node1.setValue(valor1);
+//            node2.setValue(valor2);
+//            
+//            return true;
 
-        if (isEmpty() || (n1 > this.length || n1 < 0)|| (n2 > this.length || n2 < 0)) {
+        if (isEmpty() || (n1 > this.length || n1 < 0) || (n2 > this.length || n2 < 0)) {
             return false;
         } else {
-            Node aux = this.inicio;
-            int i = 0;
-            
-            while (aux != null) {
-                if (i == n1) {
-                    node1 = aux;
-                }
-                if(i == n2){
-                    node2 = aux;
-                }
-                aux = aux.getProximo();
-                i++;
-            }
-           
+            Node node1 = this.obterUm(n1);
+            Node node2 = this.obterUm(n2);
+
+            int valor1 = node2.getValue();
+            int valor2 = node1.getValue();
+
             node1.setValue(valor1);
             node2.setValue(valor2);
-            
+
             return true;
         }
     }
@@ -264,39 +279,68 @@ public class NumberList {
         List<Integer> valores = new ArrayList<Integer>();
         NumberList lista = new NumberList();
         Node aux = this.inicio;
-        
-        while(aux != null){          
-            if(valores.indexOf(aux.getValue()) == -1){
+
+        while (aux != null) {
+            if (valores.indexOf(aux.getValue()) == -1) {
                 valores.add(aux.getValue());
                 lista.inserirNoFim(new Node(aux.getValue()));
             }
             aux = aux.getProximo();
         }
-        
+
         return lista;
     }
-    
-    public NumberList clonarListaInversa(){
+
+    public NumberList clonarListaInversa() {
         NumberList lista = new NumberList();
         Node aux = this.inicio;
-        
-        while(aux != null){
+
+        while (aux != null) {
             lista.inserirNoInicio(new Node(aux.getValue()));
             aux = aux.getProximo();
         }
-        
-        return lista;        
+
+        return lista;
     }
 
     public int listarItensTotalizados() {
-       Node aux = this.inicio;
-       int total = 0;
-       
-       while(aux != null){
-           total += aux.getValue();
-           aux = aux.getProximo();
-       }
-       
-       return total;
+        Node aux = this.inicio;
+        int total = 0;
+
+        while (aux != null) {
+            total += aux.getValue();
+            aux = aux.getProximo();
+        }
+
+        return total;
+    }
+
+    public void inserirOrdenadoAsc(Node item) {
+        if(isEmpty()){
+            inserirNoInicio(item);
+        }
+        Node aux = this.inicio;
+        int maiorValor = item.getValue();
+        int valorAtual = aux.getValue();
+        int indice = 0;
+
+        while (maiorValor > valorAtual && aux != null) {
+            indice ++;
+            valorAtual = aux.getValue();
+            aux = aux.getProximo();
+        }
+        
+        this.inserir(item, indice);        
+    }
+
+    public NumberList mesclarEmOrdem(NumberList novaListaInversa) {
+        Node aux = novaListaInversa.inicio;
+        
+        while(aux != null){
+            this.inserirOrdenadoAsc(aux);
+            aux = aux.getProximo();
+        }
+        
+        return this;
     }
 }
