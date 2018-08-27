@@ -18,6 +18,10 @@ public class Node {
 
     }
 
+    /**
+     * Este método é o construtor
+     * @param value 
+     */
     public Node(int value) {
         this.setValue(value);
         this.setProximo(null);

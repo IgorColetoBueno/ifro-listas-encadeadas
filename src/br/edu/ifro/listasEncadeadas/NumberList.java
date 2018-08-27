@@ -82,7 +82,6 @@ public class NumberList {
             Node anterior = null;
 
             if (index == 0) {
-                Node deletado = aux;
                 this.inicio = aux.getProximo();
             } else {
                 int i = 0;
@@ -225,7 +224,7 @@ public class NumberList {
     }
 
     public Node obterUm(int index) {
-        if (this.isEmpty()) {
+        if (this.isEmpty() || index < 0 || index >= this.length) {
             return null;
         } else {
             Node aux = this.inicio;
@@ -237,6 +236,25 @@ public class NumberList {
             return aux;
         }
     }
+    
+        public Node obterUm(Node item) {
+        if (this.isEmpty()) {
+            return null;
+        } else {
+            Node aux = this.inicio;
+
+            for (int i = 0; i < this.length; i++) {
+                if(item.getValue() == aux.getValue()){
+                    Node valor = aux.clone();
+                    valor.setProximo(null);
+                    return valor;
+                }
+                aux = aux.getProximo();
+            }
+            return aux;
+        }
+    }
+
 
     @Override
     public String toString() {
@@ -276,13 +294,14 @@ public class NumberList {
     }
 
     public NumberList clonarListaLimpa() {
-        List<Integer> valores = new ArrayList<Integer>();
+        NumberList valoresJaInseridos = new NumberList();
         NumberList lista = new NumberList();
+        
         Node aux = this.inicio;
 
         while (aux != null) {
-            if (valores.indexOf(aux.getValue()) == -1) {
-                valores.add(aux.getValue());
+            if (valoresJaInseridos.obterUm(aux) == null) {
+                valoresJaInseridos.inserirNoFim(new Node(aux.getValue()));
                 lista.inserirNoFim(new Node(aux.getValue()));
             }
             aux = aux.getProximo();
