@@ -143,20 +143,6 @@ public class Lista<T> {
         return this.remover(length - 1);
     }
 
-    public boolean comparar(Lista<T> lista) {
-        boolean comparador = true;
-        Node<T> aux = lista.getInicio();
-
-        while (aux != null) {
-            if (this.obterUm(aux) == null) {
-                comparador = false;
-            }
-            aux = aux.getProximo();
-        }
-
-        return comparador;
-    }
-
     public Node<T> obterUm(int index) {
         if (this.isEmpty() || index < 0 || index >= this.length) {
             return null;
@@ -218,16 +204,14 @@ public class Lista<T> {
     }
 
     public Lista<T> concatenar(Lista<T> lista2) {
-        Node<T> aux = lista2.getInicio();
-        Lista<T> novaLista = this.clone();
+        Node<T> aux = this.getInicio().clone();
+        Lista<T> novaLista2 = lista2.clone();
         
         while(aux != null){
-            T value = aux.getValue();
-            Node<T> node = new Node<T>(value);
-            novaLista.inserirNoFim(node);
+            novaLista2.inserirNoFim(new Node<T>(aux.getValue()));
             aux = aux.getProximo();
-        }
+        }       
                 
-        return novaLista;
+        return novaLista2;
     }
 }

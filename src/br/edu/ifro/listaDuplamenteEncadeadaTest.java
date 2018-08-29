@@ -22,47 +22,62 @@ public class listaDuplamenteEncadeadaTest {
      */
     public static void main(String[] args) throws CloneNotSupportedException {
 
-        Lista<Integer> lista = new Lista<>();
-        ListaNumerica numeros = new ListaNumerica();
+        //Listas para utilizar nos testes
+        ListaNumerica primeiraListaNumerica = new ListaNumerica();
+        ListaNumerica segundaListaNumerica = new ListaNumerica();
         ListaVenda listaVenda = new ListaVenda();
 
         for (int i = 0; i < 10; i++) {
-            lista.inserirNoFim(new Node(i));
-            numeros.inserirNoFim(new Node(i));
-            listaVenda.inserirNoFim(new Node<ItemVenda>(new ItemVenda(i,"Produto "+i,i,i,i)));
+            primeiraListaNumerica.inserirNoFim(new Node(i));
+            segundaListaNumerica.inserirNoFim(new Node(i));
+            listaVenda.inserirNoFim(new Node<ItemVenda>(new ItemVenda(i, "Produto " + i, i, i, i)));
         }
 
         //Exercício 1
-        lista.removerUltimo();
-        lista.removerPrimeiro();
+        System.out.println("\n *Exercício 1");
+        primeiraListaNumerica.removerUltimo();
+        primeiraListaNumerica.removerPrimeiro();
 
-        System.out.println(lista.toString());
+        System.out.println(primeiraListaNumerica.toString());
 
         //Exercício 2
-        System.out.println("Maior elemento: " + numeros.buscarMaiorItem().toString());
-        System.out.println("Menor elemento: " + numeros.buscarMenorItem().toString());
-        System.out.println("Média: " + numeros.buscarMediaDeItens());
+        System.out.println("\n *Exercício 2");
+        System.out.println("Maior elemento: " + segundaListaNumerica.buscarMaiorItem().toString());
+        System.out.println("Menor elemento: " + segundaListaNumerica.buscarMenorItem().toString());
+        System.out.println("Média: " + segundaListaNumerica.buscarMediaDeItens());
 
         //Exercício 3
-        System.out.println("Quantidade de pares: " + numeros.buscarQuantidadeDePares());
+        System.out.println("\n *Exercício 3");
+        System.out.println("Quantidade de pares: " + segundaListaNumerica.buscarQuantidadeDePares());
 
         //Exercício 4
-        ListaNumerica listaSubstituida = listaSubstituida = ListaNumerica.substituir(numeros, 0, 9);
+        System.out.println("\n *Exercício 4");
+        ListaNumerica listaSubstituida = listaSubstituida = ListaNumerica.substituir(segundaListaNumerica, 0, 9);
         System.out.println(listaSubstituida.toString());
-        
+
+        //Exercício 5
         //Exercício 6
+        System.out.println("\n *Exercício 6");
         System.out.println(listaVenda.toString());
-        System.out.println("Total: "+listaVenda.obterValorTotal());
-        
+        System.out.println("Total: " + listaVenda.obterValorTotal());
+
         //Exercicio 7
-        Lista<Integer> numerosClonados = numeros.clone();
-        System.out.println("Clonando lista para testar se são iguais:" + numeros.comparar(numerosClonados));
-        
+        System.out.println("\n *Exercício 7");
+        ListaNumerica numerosClonados = segundaListaNumerica.clone();
+        System.out.println("Clonando lista para testar se são iguais:" + segundaListaNumerica.comparar(numerosClonados));
+
         //Exercício 8
+        System.out.println("\n *Exercício 8");
+        System.out.println("Verificando a ordenação das listas: " + segundaListaNumerica.verificarOrdenacao());
+
         //Exercício 9
-        //Exercício 10
-        System.out.println(numeros.concatenar(numerosClonados));
+        System.out.println("\n *Exercício 9");
+        System.out.println("Lista fatiada:" + ListaNumerica.fatiarLista(segundaListaNumerica, 3));
         
+        //Exercício 10
+        System.out.println("\n *Exercício 10");
+        System.out.println(segundaListaNumerica.concatenar(numerosClonados));
+
     }
 
 }

@@ -96,5 +96,82 @@ public class ListaNumerica extends Lista<Integer> {
         
         return lista;
     }
+ 
+    @Override
+    public ListaNumerica clone(){
+        ListaNumerica retorno = new ListaNumerica();
+        Node<Integer> aux = this.getInicio();
+        
+        while(aux != null){
+            retorno.inserirNoFim(new Node<Integer>(aux.getValue()));
+            aux = aux.getProximo();
+        }
+        
+        return retorno;
+    }
+
+    public boolean verificarOrdenacao() {
+        boolean ordenadoAsc = true;
+        boolean ordenadoDesc = true;
+        
+        if(this.isEmpty()){
+            return false;
+        }
+        
+        Node<Integer> aux = this.getInicio();
+        
+        Integer ascAux = aux.getValue();
+        Integer descAux = aux.getValue();
+        
+        while(aux != null){
+            if(aux.getValue() > descAux){
+                ordenadoDesc = false;
+            }
+            if(aux.getValue() < ascAux){
+                ordenadoAsc = false;
+            }
+            
+            if(!ordenadoAsc && !ordenadoDesc){
+                return false;
+            }
+            
+            ascAux = aux.getValue();            
+            descAux = aux.getValue();
+            
+            aux = aux.getProximo();            
+            
+        }
+        
+        return true;        
+    }
     
+    public boolean comparar(ListaNumerica lista) {
+        boolean comparador = true;
+        Node<Integer> aux = lista.clone().getInicio();
+        
+        while (aux != null) {
+            if (this.obterUm(aux) == null) {
+                comparador = false;
+            }
+            
+            aux = aux.getProximo();
+        }
+
+        return comparador;
+    }
+    
+    public static ListaNumerica fatiarLista(ListaNumerica lista, int valor){
+        Node<Integer> aux = lista.getInicio();
+        ListaNumerica listaRetorno = new ListaNumerica();
+        
+        while(aux.getValue() != valor && aux != null){
+            aux = aux.getProximo();
+        }
+        while(aux != null){
+            listaRetorno.inserirNoFim(new Node<Integer>(aux.getValue()));
+            aux = aux.getProximo();
+        }
+        
+        return listaRetorno;
+    }
 }
